@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facial Recognition Attendance System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #121212;
+        color: #f0f0f0;
+      }
+
+      header {
+        background-color: #1f1f1f;
+        color: #00ffcc;
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 3rem;
+        font-weight: 600;
+      }
+
+      header p {
+        font-size: 1.5rem;
+        color: #ff0077;
+      }
+
+      .banner {
+        background-color: #ff0077;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        margin: 20px 0;
+        font-size: 1.2rem;
+        border-radius: 5px;
+      }
+
+      .banner p {
+        font-size: 1.2rem;
+        margin: 10px 0;
+      }
+
+      .video-container {
+        text-align: center;
+        margin: 20px 0;
+        background-color: #1f1f1f;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: center;
+      }
+
+      .video-container video {
+        width: 80%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 5%;
+      }
+
+      .container {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      h2 {
+        color: #00ffcc;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #d0d0d0;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .cta {
+        background-color: #1f1f1f;
+        color: #00ffcc;
+        padding: 40px;
+        text-align: center;
+        margin: 40px 0;
+        border-radius: 10px;
+      }
+
+      .cta button {
+        background-color: #ff0077;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .cta button:hover {
+        background-color: #e6006f;
+      }
+
+      .canvas-container {
+        text-align: center;
+        margin: 20px 0;
+        background-color: #1f1f1f;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      footer {
+        background-color: #1f1f1f;
+        color: #d0d0d0;
+        padding: 20px;
+        text-align: center;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 1rem;
+      }
+    </style>
+    <script>
+      // Function to start camera stream for facial recognition
+      function startCamera() {
+        const video = document.getElementById("cameraFeed");
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then(function (stream) {
+              video.srcObject = stream;
+            })
+            .catch(function (error) {
+              console.error("Error accessing the camera: ", error);
+            });
+        }
+      }
+
+      // Function to capture attendance by taking a snapshot of the video feed
+      function captureAttendance() {
+        const video = document.getElementById("cameraFeed");
+        const canvas = document.getElementById("capturedImage");
+        const context = canvas.getContext("2d");
+
+        // Set canvas dimensions to match video feed
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        // Draw the current video frame onto the canvas
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        alert("Facial recognition attendance has been captured.");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="banner">
+      <p><b>Welcome to the Facial Recognition Attendance System</b></p>
+    </div>
+
+    <header>
+      <h1>FACIAL RECOGNITION ATTENDANCE</h1>
+      <p>Seamless Attendance with Just a Look</p>
+    </header>
+
+    <div class="video-container">
+      <video id="cameraFeed" autoplay muted></video>
+    </div>
+
+    <div class="container">
+      <section>
+        <h2>How to Use the Attendance System</h2>
+        <p>
+          To mark your attendance using facial recognition, please click on the
+          "Start Camera" button below. Allow access to your camera when
+          prompted. Make sure your face is clearly visible in the camera view.
+          Once ready, click the "Capture Attendance" button.
+        </p>
+      </section>
+
+      <section class="cta">
+        <button onclick="startCamera()">Start Camera</button>
+        <button onclick="captureAttendance()">Capture Attendance</button>
+      </section>
+
+      <div class="canvas-container">
+        <h2>Captured Image</h2>
+        <canvas id="capturedImage"></canvas>
+      </div>
+    </div>
+
+    <footer>
+      <div class="contact">
+        <p>
+          Contact Us:
+          <a href="mailto:gauravsharmahzb@gmail.com" style="color: #00ffcc"
+            >ajmorpheus2005@gmail.com</a
+          >
+        </p>
+      </div>
+      <p>
+        &copy; 2024 Facial Recognition Attendance System. All rights reserved.
+      </p>
+    </footer>
+    <a href="/logout">Logout</a>
+    <a href="/about">About</a>
+  </body>
+</html>
